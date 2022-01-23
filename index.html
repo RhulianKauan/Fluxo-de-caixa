@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <title>Document</title>
+</head>
+<body>
+    <header><div class="data--atual"></div></header>
+
+    <!-- MODAL DE LANÇAMENTOS -->
+    <div class="modal--lancamentos modal">
+        <i class="ri-close-circle-line"></i>
+        <h2>Lançamentos</h2>
+        <div class="paineis">
+
+            <div class="painel--lancamento">
+                <h3>Entradas</h3>
+                <div class="box">
+                    Data
+                    <input class="painel--lancamento-data" type="date">
+                </div>
+                <div class="box">
+                    Tipo
+                    <select class="painel--lancamento-tipo box--tipo">
+                        <option value="ENTRADA">ENTRADA</option>
+                        <option value="SAÍDA">SAÍDA</option>
+                        <option value="entrada n/ operacional">entrada n/ operacional</option>
+                        <option value="saída n/ operacional">saída n/ operacional</option>
+                    </select>
+                </div>
+                <div class="box">
+                    Categoria
+                    <select class="painel--lancamento-categoria box--categoria">
+
+                    </select>
+                </div>
+
+                <div class="box">
+                    Detalhes
+                    <textarea class="painel--lancamento-detalhes"></textarea>
+                </div>
+
+                <div class="box">
+                    Meio
+                    <select class="painel--lancamento-meio">
+                        <option value="dinheiro">Dinheiro</option>
+                        <option value="pix">Pix</option>
+                        <option value="cartão">Cartão</option>
+                        <option value="transferência">Transferência</option>
+                    </select>
+                </div>
+                <div class="box">
+                    Valor
+                    <input class="painel--lancamento-valor center" type="text">
+                    <div class="control">  
+                    </div>
+                </div>
+                <button class="lancamento--geral marginTop">Lançar</button>
+                <button class="adicionar-100">-100 +100</button>
+            </div>
+
+            <!-- LANÇAMENTO DE CARTÃO -->
+            <div class="painel--lancamento-cartao">
+                <h3>Cartão</h3>
+                <div class="box">
+                    Data
+                    <input class="lancamento--cartao-data" type="date">
+                </div>
+                <div class="box">
+                    Tipo
+                    <select class="lancamento--cartao-tipo">
+                        <option value="credito">Crédito</option>
+                        <option value="debito">Débido</option>
+                    </select>
+                </div>
+                <div class="box">
+                    Bandeira
+                    <select class="lancamento--cartao-bandeira">
+                        <!-- Crédito e débido tem bandeiras diferentes -->
+                        <!-- <option value="">sem valor</option> -->
+                    </select>
+                </div>
+                <div class="box">
+                    Modalidade
+                    <select class="lancamento--cartao-modalidade">
+                        <option value="À vista">À vista</option>
+                        <option value="2">2x</option>
+                        <option value="3">3x</option>
+                        <option value="4">4x</option>
+                        <option value="5">5x</option>
+                        <option value="6">6x</option>
+                        <option value="7">7x</option>
+                        <option value="8">8x</option>
+                        <option value="9">9x</option>
+                        <option value="10">10x</option>
+                        <option value="11">11x</option>
+                        <option value="12">12x</option>
+                    </select>
+                    <!-- No crédito tem avista de parcelado, no débito apenas avista -->
+                </div>
+                <div class="box">
+                    Valor
+                    <input class="lancamento--cartao-valor center" type="text">
+                </div>
+                <p>---</p>
+                <button class="lancamento--cartao-lancar">Lançar</button>
+            </div>
+
+            <!-- LANÇAMENTO DE SERVIÇO -->
+            <div class="painel--lancamento-servico">
+                <div class="box">
+                    Serviços
+                    <input class="lancamento-servico-valor" type="text" placeholder="ENTER para lançar">
+                </div>
+
+                <div class="box">
+                    Data
+                    <input class="lancamento-servico-data" type="date">
+                </div>
+            </div>
+
+
+        </div>
+        <h2 class="marginBottom">Últimos lançamentos</h2>
+        <table class="tabela--lancamento" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr>
+                    <th><i class="ri-pencil-fill"></i></th>
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Categoria</th>
+                    <th>Detalhes</th>
+                    <th>Modo</th>
+                    <th>Valor</th>
+                    <th>X</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    
+
+    <!-- MODAL EDITAR LANÇAMENTO -->
+    <div class="painel--editar-lancamento">
+        <i class="ri-close-circle-line"></i>
+        <h2>Editar lançamento</h2>
+        Data
+        <input type="date">
+        Tipo
+        <select>
+            <option value="ENTRADA">ENTRADA</option>
+            <option value="SAÍDA">SAÍDA</option>
+            <option value="entrada n/ operacional">entrada n/ operacional</option>
+            <option value="saída n/ operacional">saída n/ operacional</option>
+        </select>
+        Categoria
+        <select>
+
+        </select>
+        Detalhes
+        <textarea></textarea>
+        Meio
+        <select>
+            <option value="dinheiro">Dinheiro</option>
+            <option value="pix">Pix</option>
+            <option value="cartão">Cartão</option>
+            <option value="transferência">Transferência</option>
+        </select>
+        Valor
+        <input type="text">
+        <button>Lançar</button>
+
+    </div>
+
+
+
+
+
+    <!-- MODAL DE AVISOS -->
+    <div class="modal--adicionar--avisos modal">
+        <i class="ri-close-circle-line"></i>
+        <h2>Adicionar avisos</h2>
+        <div class="painel--lancar-avisos">
+            <div class="box--lancar-nome">
+                Nome
+                <input autofocus type="text">
+            </div>
+            <div class="box--lancar-nota">
+                Nota
+                <textarea name="" id=""></textarea>
+            </div>
+            <div class="box--lancar-repeticao">
+                Repetição
+                <select name="" id="">
+                    <option value="Uma vez">Uma vez</option>
+                    <option value="Todos os dias">Todos os dias</option>
+                    <option value="Uma vez por semana">Uma vez por semana</option>
+                    <option value="Uma vez por mês">Uma vez por mês</option>
+                </select>
+            </div>
+            <div class="box--lancar-data">
+                Data
+                <input type="date">
+            </div>
+            <button>Registrar</button>
+        </div>
+        <div class="avisos--lancados">
+            <table cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Nota</th>
+                        <th>Repetição</th>
+                        <th>Data</th>
+                        <th>X</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr>
+                        <td>aa</td>
+                        <td>aa</td>
+                        <td>aa</td>
+                        <td>aa</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL CONTAS A PAGAR -->
+
+    <div class="modal--contas modal">
+        <i class="ri-close-circle-line"></i>
+        <h2>Contas a pagar</h2>
+        <div class="contas--buttons">
+            <button>Mês atual</button>
+            <button>Tudo</button>
+        </div>
+        <div class="contas--info">
+            <div class="box--total-conta">
+                <h3>Total</h3>
+                <span></span>
+            </div>
+        </div>
+        <div class="painel--lancar-conta">
+            <div class="box">
+                Nome:
+                <select>
+                    
+                </select>
+            </div>
+            <div class="box">
+                Data:
+                <input type="date"> 
+            </div>
+
+            <div class="box">
+                Valor:
+                <input type="text">
+            </div>
+            <button>Lançar</button>
+        </div>
+        <h3>Contas lançadas</h3>
+        <table cellspacing="0" cellpadding="0">
+            <thead>
+                <tr>
+                    <th><i class="ri-pencil-fill"></i></th>
+                   <th>Data</th> 
+                   <th>Nome</th> 
+                   <th>Valor</th> 
+                   <th>X</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Local de lançamento -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- modal separador -->
+    <div class="modal--separador">
+        <i class="ri-close-circle-line"></i>
+        <div class="barra-dinheiro barra">
+            <i class="ri-money-dollar-box-fill"></i>
+            <div class="valor--fisico">--</div>
+        </div>
+
+        <div class="barra--separador-principal barra">
+            Principal
+            <span>--</span>
+            <input type="text">
+        </div>
+        <div class="barra--separador-local1 barra">
+            Local1
+            <span>--</span>
+            <input type="text">
+            <button>100</button>
+        </div>
+        <p>--</p>
+
+    </div>
+
+    <!-- MODAL relatório -->
+    <div class="modal-relatorio">
+        <i class="ri-close-circle-line"></i>
+        <h2>Relatório</h2>
+        <table class="tabela-relatorio" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr>
+                   <th>Data</th> 
+                   <th>receita</th> 
+                   <th>faturamento</th> 
+                   <th>despesa</th> 
+                   <th>lucro</th> 
+                   <th>Qtd. serviços</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Local de lançamento -->
+            </tbody>
+        </table>
+    </div>
+
+
+    <main>
+
+
+        <!-- MODELOS -->
+        <div class="model none">
+            <!-- caixa de aviso na tela principal -->
+            <div class="model--aviso">
+                <span></span><br>
+                <span></span><br>
+                <span></span><br>
+                <span></span><br>
+                <i class="ri-close-circle-line"></i>
+                <hr>
+            </div>
+        </div>
+
+        <!-- PAINEL PRINCIPAL -->
+        <div class="painel--principal">
+            <div class="card--dinheiro-disponivel">
+                <div class="barra">
+                    <i class="ri-bank-fill"></i>
+                    <div class="valor--banco">--</div>
+                </div>
+                <div class="barra--dinheiro-fisico barra-dinheiro barra">
+                    <i class="ri-money-dollar-box-fill"></i>
+                    <div class="valor--fisico">--</div>
+                </div>
+            </div>
+            
+            <div class="card--avisos">
+                <h2>Avisos</h2>
+                <div class="area--avisos"></div>
+                <button class="adicionar--aviso"><i class="ri-add-fill"></i></button>
+            </div>
+
+            <!-- PAINEL DE INFORMAÇÕES DO MÊS ATUAL -->
+            <div class="card--info">
+                <h2>--</h2>
+                <div class="info-receita barra--info">
+                    <h3>Receita</h3> 
+                    <span>--</span>
+                </div>
+                <div class="info-faturamento barra--info">
+                    <h3>Faturamento</h3>
+                    <span>--</span>
+                </div>
+                <div class="info-despesa barra--info">
+                    <h3>Despesa</h3>
+                    <span>--</span>
+                </div>
+                <div class="info-servico barra--info">
+                    <h3>Serviço</h3>
+                    <span>--</span>
+                </div>
+                <div class="info-lucro barra--info">
+                    <h3>Lucro</h3>
+                    <span>--</span>
+                </div>
+            </div>
+            
+            <!-- PAINEL DE BOTÕES -->
+            <div class="card--btn">
+                <button class="card--btn-lancamento">Lançamento</button>
+                <button class="card--btn-contas">Contas a pagar</button>
+                <button class="card--btn-relatorio">Relatório</button>
+                <button class="card--btn-ntf">Nota fiscal</button>
+                <button class="card--btn-anote">Anotações</button>
+            </div>
+        </div>
+    </main>
+    <img src="assets/Notas_fiscais_facilitador2/index.html" alt="">
+
+    <script src="assets/js/options.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

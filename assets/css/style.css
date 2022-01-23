@@ -1,0 +1,568 @@
+:root {
+    --cor-escura: #202020;
+    --cor-principal: #444444;
+    --cor-escuro3: #31202f;
+
+    --cor-claro1: #4d5382;
+    --cor-claro2: #7e84ad;
+    --cor-claro3: #d8dae7;
+    --branco: rgb(240, 240, 240);
+    --tamanho-card: 250px;
+    --tamanho-card2: 150px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--cor-escura);
+}
+
+
+input,
+select,
+textarea {
+    outline: none;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 35px;
+    color: var(--cor-claro3);
+    background-color: var(--cor-principal);
+    margin-bottom: 40px;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1, h2{
+    color: var(--cor-claro3);
+    width: auto;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.marginBottom {
+    margin-bottom: 0px;
+}
+
+
+
+.painel--principal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 800px;
+    height: auto;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.card--dinheiro-disponivel {
+    display: flex;
+    flex-wrap: wrap;
+    width: 350px;
+    min-height: var(--tamanho-card2);
+    background-color: var(--cor-claro1);
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.painel--principal i,
+.barra-dinheiro i {
+    font-size: 30px;
+}
+
+.barra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 320px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: var(--cor-claro3);
+    padding: 0 20px;
+}
+
+.card--avisos {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    width: 350px;
+    min-height: var(--tamanho-card2);
+    background-color: var(--cor-claro1);
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.card--avisos h2 {
+    font-size: 18px;
+}
+
+.adicionar--aviso {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    width: 100%;
+    border-radius: 10px;
+    color: var(--cor-claro1);
+    background-color: var(--cor-claro3);
+    box-shadow: 0px 3px 2px #49494960;
+}
+
+.card--info {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    width: 350px;
+    height: var(--tamanho-card);
+    background-color: var(--cor-claro1);
+    border-radius: 10px;
+    padding: 20px;
+    gap: 5px;
+}
+
+.card--info h2 {
+    font-size: 18px;
+}
+.card--info h3 {
+    font-size: 12px;
+}
+
+.card--info .barra--info {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: var(--cor-claro3);
+    justify-content: space-between;
+    width: 100%;
+    height: 30px;
+    border-radius: 10px;
+    padding: 0 10px;
+}
+
+.card--btn {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    width: 350px;
+    height: var(--tamanho-card);
+    background-color: var(--cor-claro1);
+    border-radius: 10px;
+    padding: 20px;
+    gap: 10px;
+}
+
+.card--btn button {
+    width: 100%;
+    flex: 1;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: var(--cor-claro3);
+    box-shadow: 0px 3px 2px #49494960;
+}
+
+
+
+.modal button:hover {
+    background-color: var(--cor-escuro3);
+    color: var(--cor-claro3);
+}
+
+
+.modal--adicionar--avisos {
+    display: none;
+    align-items: center;
+    position: fixed;
+    left: calc(50% - 400px);
+    flex-direction: column;
+    width: 800px;
+    height: 100%;
+    top: 0;
+    overflow-y: auto;
+    border-radius: 10px;
+    background-color: var(--cor-claro1);
+}
+
+.modal .ri-close-circle-line {
+    position: sticky;
+    top: 5px;
+    align-self: flex-end;
+    font-size: 30px;
+    margin: 20px 20px;
+}
+
+.modal--adicionar--avisos h2 {
+    height: 20px;
+    margin: 0;
+    margin-bottom: 25px;
+}
+
+
+
+.modal input,
+.modal select,
+.modal button {
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    height: 25px;
+    width: 180px;
+    font-size: 12px;
+    padding-left: 10px;
+    font-weight: bold;
+    background-color: var(--cor-claro3);
+}
+
+textarea {
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    height: 25px;
+    width: 180px;
+    font-size: 12px;
+    resize: none;
+    padding: 10px 10px;
+    height: 40px;
+    background-color: var(--cor-claro3);
+}
+
+
+.painel--lancar-avisos button {
+    margin-top: 10px;
+}
+
+.painel--lancar-avisos button:hover {
+    background-color: var(--cor-claro3);
+}
+
+
+.box--lancar-nome,
+.box--lancar-nota,
+.box--lancar-repeticao,
+.box--lancar-data {
+    display: flex;
+    width: 120px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+
+
+.box {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* TABELAS */
+.modal table {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.modal table thead{
+    font-size: 14px;
+}
+
+.modal table thead th {
+    background-color: var(--cor-escura);
+    color: var(--cor-claro3);
+    padding: 5px;
+    width: 150px;
+    cursor: pointer;
+}
+
+.modal table thead th:last-child {
+    width: 20px;
+    color: red;
+}
+
+.modal table thead th:first-child {
+    width: 20px;
+    color: rgb(255, 255, 255);
+}
+
+.modal table tbody td:last-child {
+    width: 20px;
+    color: red;
+    font-weight: bolder;
+}
+
+.modal table tbody td {
+    cursor: pointer;
+    padding: 5px;
+    max-width: 50px;
+    word-wrap: break-word;
+}
+
+.modal table tbody {
+    border-radius: 10px;
+    height: 20px;
+    background-color: var(--cor-claro3);
+}
+
+.modal table tbody tr:hover {
+    background-color: var(--cor-claro3);
+    font-weight: bold;
+}
+
+.none {
+    display: none;
+}
+
+.area--avisos {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: var(--cor-claro3);
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    font-size: 14px;
+    width: 200px;
+}
+
+.area--avisos span:first-child {
+    font-weight: bold;
+}
+
+
+.area--avisos i {
+    margin: 0;    
+}
+
+.model--aviso {
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.modal {
+    display: none;
+    align-items: center;
+    position: fixed;
+    left: calc(50% - 500px);
+    flex-direction: column;
+    width: 1000px;
+    height: 100%;
+    top: 0;
+    overflow-y: auto;
+    border-radius: 10px;
+    background-color: #bdbec4;
+    /* color: #e26060; */
+}
+
+.painel--lancamento,
+.painel--lancamento-cartao,
+.painel--lancar-avisos,
+.painel--lancar-conta,
+.painel--lancamento-servico {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 260px;
+    height: auto;
+    background-color: #51568b;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 30px;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px var(--cor-escuro3);
+    margin-bottom: 20px;
+}
+
+.painel--lancamento-servico {
+    align-items: center;
+    height: 150px;
+}
+
+
+.center {
+    text-align: center;
+}
+
+.paineis {
+    display: flex;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.modal--lancamentos .paineis{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+
+.modal button {
+    font-weight: bold;
+    background-color: transparent;
+    color: var(--cor-claro3);
+    border: 2px solid var(--cor-claro3);
+    font-weight: bold;
+}
+
+.modal h2 {
+    color: #51568b;
+}
+
+.marginTop {
+    margin-top: 10px;
+}
+
+.model--editar-lancamento {
+    position: fixed;
+    
+}
+
+.painel--editar-lancamento {
+    display: none;
+    background-color: #a0a0a0;
+    border-radius: 10px;
+    padding: 45px;
+    position: fixed;
+    flex-direction: column;
+    left: calc(50% - 150px);    
+    width: 300px;
+    height: auto;
+}
+
+.modal--separador {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    left: calc(50% - 250px);
+    width: 500px;
+    height: 300px;
+    background-color: #C4C4C4;
+    padding: 25px;
+    border-radius: 10px;
+    gap: 5px;
+}
+
+.modal--separador i {
+    font-size: 30px;
+}
+
+.modal--separador input {
+    border: none;
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+    padding: 0 10px;
+}
+
+.modal--separador .barra {
+    background-color: #F5F5F5;
+}
+
+.barra--separador-local1 button{
+    width: 40px;
+    height: 30px;
+    border: none;
+    background-color: #d8dae7;
+}
+
+.modal--separador {
+    display: none;
+}
+
+.modal-relatorio {
+    display: none;
+    align-items: center;
+    position: fixed;
+    left: calc(50% - 500px);
+    flex-direction: column;
+    width: 1000px;
+    height: 100%;
+    top: 0;
+    overflow-y: auto;
+    border-radius: 10px;
+    background-color: #bdbec4;
+    padding: 30px;
+}
+
+.modal-relatorio h2 {
+    color: #4d5382;
+    margin-top: 20px;
+}
+
+.modal-relatorio i {
+    font-size: 40px;
+    align-self: flex-end;
+}
+
+
+
+
+
+
+
+
+.modal-relatorio table {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.modal-relatorio table thead{
+    font-size: 14px;
+}
+
+.modal-relatorio table thead th {
+    background-color: var(--cor-escura);
+    color: var(--cor-claro3);
+    padding: 5px;
+    width: 150px;
+    cursor: pointer;
+}
+
+.modal-relatorio table tbody td {
+    cursor: pointer;
+    padding: 5px;
+    max-width: 50px;
+    word-wrap: break-word;
+}
+
+.modal-relatorio table tbody {
+    border-radius: 10px;
+    height: 20px;
+    background-color: var(--cor-claro3);
+}
+
+.modal-relatorio table tbody tr:hover {
+    background-color: var(--cor-claro3);
+    font-weight: bold;
+}
