@@ -228,6 +228,71 @@ function calcularSaldoAtual() {
 
 }
 
+
+
+//  RELATÓRIO
+
+// abrir modal
+
+c('.card--btn-relatorio').addEventListener('click', ()=> {
+    c('.modal-relatorio').style.display = 'flex'
+})
+fechamento('.modal-relatorio i', '.modal-relatorio')
+
+
+// carregar as datas
+function carregarDatas() {
+    let array = []
+    c('.tabela-relatorio tbody').innerHTML = '';
+    
+    let dados = JSON.parse(localStorage.lancamentos)
+    dados.forEach((item)=> {
+        array.push(item.data.substring(0, 7))
+        // array contendo os meses que tiveram registro
+        novaArr = array.filter((este, i) => array.indexOf(este) === i);
+    })
+
+    // mostrar dados na tabela
+    
+    //nova Arr ['2022-01', '2022-02', '2022-12']
+    novaArr.map((item)=> {
+        let totalReceita = 0;
+        let totalFaturamento = 0;
+        let totalDespesa = 0;
+        let totalLucro = 0;
+        let totalServico = 0;
+        let valores = [];
+        dados.forEach((i)=> {
+            let data = i.data.substring(0, 7)
+            if(data == item && i.tipo == 'ENTRADA') {
+                totalReceita += parseInt(i.valor)
+            } else if (data == item && i.tipo == 'credito' || i.tipo == 'debito') {
+                totalFaturamento += parseInt(i.valor)
+            } else if (data == item && i.tipo == 'SAÍDA') {
+                totalDespesa += parseInt(i.valor)*(-1)
+            } else if (data == item && i.tipo == 'serviços') {
+                totalServico += parseInt(i.valor)
+            }
+        })
+        totalFaturamento += totalReceita
+        totalLucro = totalFaturamento - totalDespesa
+        console.log(`Data: ${item} / Receita: ${totalReceita} / Faturamento: ${totalFaturamento} / Despesa: ${totalDespesa} / Lucro: ${totalLucro} / Serviços: ${totalServico}`)
+
+        valores = [item, `R$ ${totalReceita.toFixed(2)}`, `R$ ${totalFaturamento.toFixed(2)}`, `R$ ${totalDespesa.toFixed(2)}`, `R$ ${totalLucro.toFixed(2)}`, totalServico]
+
+        let linha = document.createElement('tr')
+        valores.forEach((itemID)=> {
+            let celula = document.createElement('td')
+            celula.innerHTML = itemID
+            linha.appendChild(celula)  
+        })
+        c('.tabela-relatorio tbody').appendChild(linha)
+    })
+}
+
+carregarDatas()
+
+
 // Mostrar dados do mês do painel de informações rápidas
 function atualizarDadosPainelInfo() {
     let dados = JSON.parse(localStorage.lancamentos)
@@ -388,6 +453,7 @@ fechamento('.modal--lancamentos i', '.modal--lancamentos')
 
 // carregar lançamentos
 function carregarLancamentos() {
+    carregarDatas()
     c('.tabela--lancamento tbody').innerHTML = ''
     let lancamentos2 = JSON.parse(localStorage.lancamentos)
     lancamentos2.map((item, itemIndex)=> {
@@ -961,112 +1027,6 @@ c('.barra--dinheiro-fisico').addEventListener('click', ()=>{
 
 
 
-
-
-
-
-
-
-
-
-
-//  RELATÓRIO
-
-// abrir modal
-
-c('.card--btn-relatorio').addEventListener('click', ()=> {
-    c('.modal-relatorio').style.display = 'flex'
-})
-fechamento('.modal-relatorio i', '.modal-relatorio')
-
-
-
-
-
-
-
-
-
-
-
-// carregar as datas
-let novaArr = []
-function carregarDatas() {
-    let array = []
-    c('.tabela-relatorio tbody').innerHTML = '';
-    
-    let dados = JSON.parse(localStorage.lancamentos)
-    dados.forEach((item)=> {
-        array.push(item.data.substring(0, 7))
-        // array contendo os meses que tiveram registro
-        novaArr = array.filter((este, i) => array.indexOf(este) === i);
-    })
-
-    // mostrar dados na tabela
-    
-    //nova Arr ['2022-01', '2022-02', '2022-12']
-    novaArr.map((item)=> {
-        let totalReceita = 0;
-        let totalFaturamento = 0;
-        let totalDespesa = 0;
-        let totalLucro = 0;
-        let totalServico = 0;
-        let valores = [];
-        dados.forEach((i)=> {
-            let data = i.data.substring(0, 7)
-            if(data == item && i.tipo == 'ENTRADA') {
-                totalReceita += parseInt(i.valor)
-            } else if (data == item && i.tipo == 'credito' || i.tipo == 'debito') {
-                totalFaturamento += parseInt(i.valor)
-            } else if (data == item && i.tipo == 'SAÍDA') {
-                totalDespesa += parseInt(i.valor)*(-1)
-            } else if (data == item && i.tipo == 'serviços') {
-                totalServico += parseInt(i.valor)
-            }
-        })
-        totalFaturamento += totalReceita
-        totalLucro = totalFaturamento - totalDespesa
-        console.log(`Data: ${item} / Receita: ${totalReceita} / Faturamento: ${totalFaturamento} / Despesa: ${totalDespesa} / Lucro: ${totalLucro} / Serviços: ${totalServico}`)
-
-        valores = [item, totalReceita, totalFaturamento, totalDespesa, totalLucro, totalServico]
-
-        let linha = document.createElement('tr')
-        valores.forEach((itemID)=> {
-            let celula = document.createElement('td')
-            celula.innerHTML = itemID
-            linha.appendChild(celula)  
-        })
-        c('.tabela-relatorio tbody').appendChild(linha)
-
-
-    })
-
-    // if(item.tipo == 'ENTRADA') {
-    //     totalReceita += parseInt(item.valor)
-    // } else if (item.tipo == 'credito' || item.tipo == 'debito') {
-    //     totalFaturamento += parseInt(item.valor)
-    // } else if (item.tipo == 'SAÍDA') {
-    //     totalDespesa += parseInt(item.valor)
-    // } else if (item.tipo == 'serviços') {
-    //     totalServico += parseInt(item.valor)
-    // }
-}
-
- 
-
-
-
-
-// carregar os dados
-
-// function carregarRelatorio() {
-//     let dados = JSON.parse(localStorage.lancamentos)
-//     dados.map((item, index)=> {
-        
-//     }) 
-// }
-
-// carregarRelatorio()
 
 
 
