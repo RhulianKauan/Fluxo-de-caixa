@@ -3,6 +3,7 @@
 - [x] Fazer modal de lançamento de receitas e despesas
 
 
+Comandos git commit -m "update the README.md with link to contributing guide"
 
 
 
