@@ -649,3 +649,8 @@ textarea {
 .modelo--clone-linha-despesa {
     display: none;
 }
+
+.area--grafico {
+    width: 300px;
+    height: auto;
+}

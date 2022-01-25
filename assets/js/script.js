@@ -251,8 +251,10 @@ function adicionarDespesasRelatorio(id) {
         }
     })
 
-    console.log(novaLista)
+
     c('.area--relatorio-despesa').innerHTML = ''
+    // passa pela lista de categorias lançadas no período sem repetição
+    let listaOrdenadaCategoria = []
     novaLista.map((item)=> {
         let soma = 0
         dados.forEach((i)=> {
@@ -260,14 +262,93 @@ function adicionarDespesasRelatorio(id) {
                 soma += parseInt(i.valor)
             }
         })
-        console.log(item)
-        console.log(soma)
+        listaOrdenadaCategoria.push({item, soma})
+        // lista decrescente das categorias
+        listaOrdenadaCategoria.sort(function(x,y) {
+            return x.soma - y.soma
+        })
+
+    })
+    let nomesGrafico = []
+    let valoresGrafico = []
+    listaOrdenadaCategoria.map((itemLista)=> {
+        // separando valores para colocar no gráfico
+        
+        nomesGrafico.push(itemLista.item)
+        valoresGrafico.push(itemLista.soma)
+
+        // carrega as despesas na tela
         let linha = c('.modelo--clone-linha-despesa .linha--despesa').cloneNode(true)
-        linha.querySelector('p').innerHTML = item
-        linha.querySelector('span').innerHTML = `R$ ${soma*(-1).toFixed(2)}`
+        linha.querySelector('p').innerHTML = itemLista.item
+        linha.querySelector('span').innerHTML = `R$ ${parseInt(itemLista.soma)*(-1).toFixed(2)}`
         c('.area--relatorio-despesa').appendChild(linha)
     })
+
+    // mostrar gráfico
+    if(nomesGrafico.length > 0) {
+
+        data = {
+            datasets: [{
+                data: valoresGrafico,
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5'
+                ]
+            }],
     
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: nomesGrafico
+        };
+    } else {
+        data = {
+            datasets: [{
+                data: [0, 1],
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5',
+                '#c5c5c5'
+                ]
+            }],
+    
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: ['a', 'b']
+        }
+    }
+
+    let config = {
+        type: 'doughnut',
+        data: data,
+    };
+
+    let myChart = new Chart(
+        document.querySelector('.myChart'),
+        config
+    );
+
+
 }
 
 
@@ -307,7 +388,7 @@ function carregarDatas() {
             })
             totalFaturamento += totalReceita
             totalLucro = totalFaturamento - totalDespesa
-            console.log(`Data: ${item} / Receita: ${totalReceita} / Faturamento: ${totalFaturamento} / Despesa: ${totalDespesa} / Lucro: ${totalLucro} / Serviços: ${totalServico}`)
+
     
             // salva os dados de cada mês em uma array
             valores.push([item, `R$ ${totalReceita.toFixed(2)}`, `R$ ${totalFaturamento.toFixed(2)}`, `R$ ${totalDespesa.toFixed(2)}`, `R$ ${totalLucro.toFixed(2)}`, totalServico])
@@ -341,7 +422,6 @@ function carregarDatas() {
                     c('.modal--relatorio-completo').style.display = 'none'
                 })
             })
-            console.log(valores)
             c('.tabela-relatorio tbody').appendChild(linha)
         })
     }
