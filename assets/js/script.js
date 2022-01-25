@@ -206,11 +206,11 @@ function registrarLocalStorage(chave, objeto) {
     localStorage.setItem(chave, JSON.stringify(memoria))
 }
 
+let saldoDinheiro = 0
+let saldoConta = 0
 
 // PREENCHENDO SALDO ATUAL
 function calcularSaldoAtual() {
-    let saldoDinheiro = 0
-    let saldoConta = 0
     let lancamento = JSON.parse(localStorage.lancamentos)
     lancamento.forEach((item)=> {
         if(item.meio == 'dinheiro') {
@@ -239,6 +239,37 @@ c('.card--btn-relatorio').addEventListener('click', ()=> {
 })
 fechamento('.modal-relatorio i', '.modal-relatorio')
 
+// função para adicionar despesas
+function adicionarDespesasRelatorio(id) {
+    let lista = []
+    let novaLista = []
+    let dados = JSON.parse(localStorage.lancamentos)
+    dados.map((item)=> {
+        if(item.tipo == 'SAÍDA' && item.data.substring(0,7) == id){
+            lista.push(item.categoria)
+            novaLista = lista.filter((este, i) => lista.indexOf(este) === i)
+        }
+    })
+
+    console.log(novaLista)
+    c('.area--relatorio-despesa').innerHTML = ''
+    novaLista.map((item)=> {
+        let soma = 0
+        dados.forEach((i)=> {
+            if(i.categoria == item && i.data.substring(0,7) == id) {
+                soma += parseInt(i.valor)
+            }
+        })
+        console.log(item)
+        console.log(soma)
+        let linha = c('.modelo--clone-linha-despesa .linha--despesa').cloneNode(true)
+        linha.querySelector('p').innerHTML = item
+        linha.querySelector('span').innerHTML = `R$ ${soma*(-1).toFixed(2)}`
+        c('.area--relatorio-despesa').appendChild(linha)
+    })
+    
+}
+
 
 // carregar as datas
 function carregarDatas() {
@@ -254,40 +285,67 @@ function carregarDatas() {
 
     // mostrar dados na tabela
     
-    //nova Arr ['2022-01', '2022-02', '2022-12']
-    novaArr.map((item)=> {
-        let totalReceita = 0;
-        let totalFaturamento = 0;
-        let totalDespesa = 0;
-        let totalLucro = 0;
-        let totalServico = 0;
-        let valores = [];
-        dados.forEach((i)=> {
-            let data = i.data.substring(0, 7)
-            if(data == item && i.tipo == 'ENTRADA') {
-                totalReceita += parseInt(i.valor)
-            } else if (data == item && i.tipo == 'credito' || i.tipo == 'debito') {
-                totalFaturamento += parseInt(i.valor)
-            } else if (data == item && i.tipo == 'SAÍDA') {
-                totalDespesa += parseInt(i.valor)*(-1)
-            } else if (data == item && i.tipo == 'serviços') {
-                totalServico += parseInt(i.valor)
-            }
-        })
-        totalFaturamento += totalReceita
-        totalLucro = totalFaturamento - totalDespesa
-        console.log(`Data: ${item} / Receita: ${totalReceita} / Faturamento: ${totalFaturamento} / Despesa: ${totalDespesa} / Lucro: ${totalLucro} / Serviços: ${totalServico}`)
+    let valores = [];
+    if(array.length > 0) {
+        novaArr.map((item, index)=> {
+            let totalReceita = 0;
+            let totalFaturamento = 0;
+            let totalDespesa = 0;
+            let totalLucro = 0;
+            let totalServico = 0;
+            dados.forEach((i)=> {
+                let data = i.data.substring(0, 7)
+                if(data == item && i.tipo == 'ENTRADA') {
+                    totalReceita += parseInt(i.valor)
+                } else if (data == item && i.tipo == 'credito' || i.tipo == 'debito') {
+                    totalFaturamento += parseInt(i.valor)
+                } else if (data == item && i.tipo == 'SAÍDA') {
+                    totalDespesa += parseInt(i.valor)*(-1)
+                } else if (data == item && i.tipo == 'serviços') {
+                    totalServico += parseInt(i.valor)
+                }
+            })
+            totalFaturamento += totalReceita
+            totalLucro = totalFaturamento - totalDespesa
+            console.log(`Data: ${item} / Receita: ${totalReceita} / Faturamento: ${totalFaturamento} / Despesa: ${totalDespesa} / Lucro: ${totalLucro} / Serviços: ${totalServico}`)
+    
+            // salva os dados de cada mês em uma array
+            valores.push([item, `R$ ${totalReceita.toFixed(2)}`, `R$ ${totalFaturamento.toFixed(2)}`, `R$ ${totalDespesa.toFixed(2)}`, `R$ ${totalLucro.toFixed(2)}`, totalServico])
+    
+            // Adiciona os meses com os dados
+            let linha = document.createElement('tr')
+            valores[index].forEach((itemID)=> {
+                let celula = document.createElement('td')
+                celula.innerHTML = itemID
+                linha.appendChild(celula)
+                // ABRIR O MODAL COM RELATÓRIO COMPLETO
+                linha.addEventListener('click', ()=> {
+                    c('.modal--relatorio-completo').style.display = 'flex'
+                    // pegando o mês por extenso
+                    let mesDoRelatorio = descobrirMes(item.substring(5, 7))
+                    // escrevendo no modal o mês
+                    c('.mes--relatorio').innerHTML = mesDoRelatorio 
+                    // adicionando o saldo atual
+                    c('.box--saldo-atual span').innerHTML = `R$ ${(parseInt(saldoDinheiro) + parseInt(saldoConta)).toFixed(2)}`
 
-        valores = [item, `R$ ${totalReceita.toFixed(2)}`, `R$ ${totalFaturamento.toFixed(2)}`, `R$ ${totalDespesa.toFixed(2)}`, `R$ ${totalLucro.toFixed(2)}`, totalServico]
+                    // adiciondo os valores
+                    for(let i = 0; i<5; i++) {
+                        cs('.box-relatorio span')[i].innerHTML = valores[index][i+1]
+                    }
 
-        let linha = document.createElement('tr')
-        valores.forEach((itemID)=> {
-            let celula = document.createElement('td')
-            celula.innerHTML = itemID
-            linha.appendChild(celula)  
+                    adicionarDespesasRelatorio(item)
+
+                })
+                // fechar modal clicando no titulo
+                cs('.modal--relatorio-completo h2')[0].addEventListener('click', ()=> {
+                    c('.modal--relatorio-completo').style.display = 'none'
+                })
+            })
+            console.log(valores)
+            c('.tabela-relatorio tbody').appendChild(linha)
         })
-        c('.tabela-relatorio tbody').appendChild(linha)
-    })
+    }
+    
 }
 
 carregarDatas()

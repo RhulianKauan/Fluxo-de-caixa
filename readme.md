@@ -1,6 +1,4 @@
-- [x] Construir o HTML e CSS (estruturas e componentes para reutilização)
-- [x] Cabeçalho com a da] Desenvolver os espaços de salvamento no localStorage
-- [x] Fazer modal de lançamento de receitas e despesas
+- [ ] Fazer vários testes antes de usar para ver se os dados são calculados corretamente
 
 
 Comandos git commit -m "update the README.md with link to contributing guide"

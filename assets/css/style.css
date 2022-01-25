@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;900&display=swap');
+
+
+
+
 :root {
     --cor-escura: #202020;
     --cor-principal: #444444;
@@ -18,7 +23,8 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: 'Roboto', Arial, sans-serif;
     background-color: var(--cor-escura);
 }
 
@@ -524,12 +530,6 @@ textarea {
 }
 
 
-
-
-
-
-
-
 .modal-relatorio table {
     margin-top: 20px;
     margin-bottom: 50px;
@@ -565,4 +565,87 @@ textarea {
 .modal-relatorio table tbody tr:hover {
     background-color: var(--cor-claro3);
     font-weight: bold;
+}
+
+
+.modal--relatorio-completo {
+    display: none;
+    align-items: center;
+    position: fixed;
+    left: calc(50% - 500px);
+    flex-direction: column;
+    width: 1000px;
+    height: 100%;
+    top: 0;
+    overflow-y: auto;
+    border-radius: 10px;
+    background-color: #bdbec4;
+    padding: 30px;
+}
+
+.modal--relatorio-completo h2 {
+    height: 10px;
+    color: #31202f;
+    margin: 20px;
+}
+
+.box--saldo-atual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 270px;
+    height: 90px;
+    background-color: #fff;
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.box--saldo-atual h3 {
+    margin: 0px;
+    font-weight: 400;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.493);
+}
+
+.box--saldo-atual span {
+    font-size: 30px;
+}
+
+.box-relatorio,
+.linha--despesa {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 270px;
+    height: 40px;
+    background-color: #fff;
+    margin-top: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    color: rgba(0, 0, 0, 0.493);
+}
+
+/* .box-relatorio {
+    height: 80px;
+} */
+
+
+.linha--despesa {
+    background-color: rgb(255, 227, 227);
+}
+
+.linha--despesa p {
+    color: rgba(0, 0, 0, 0.493);
+}
+
+.box-relatorio span,
+.linha--despesa span {
+    color: black;
+}
+
+.modelo--clone-linha-despesa {
+    display: none;
 }
