@@ -6,7 +6,7 @@
 
 ### Recursos
 
-- Lançamento de entradas e sáidas de caixa
+- Lançamento de entradas e saidas de caixa
 - Relatório
 - Registro de contas a pagar com alerta
 - Dados salvos no localstorage
