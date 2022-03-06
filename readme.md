@@ -16,7 +16,7 @@
 - [ ] Refatorar código
 - [ ] Add Exportação e importação de dados
 - [ ] Corrigir falhas no design
-- [ ] Add Função de editar um dado lançado
+- [ ] Add função de editar um dado lançado
 - [ ] Add Toasts (notificações temporárias)
 - [ ] Salvar relatório em pdf
 
