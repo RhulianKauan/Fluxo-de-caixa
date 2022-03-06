@@ -18,20 +18,26 @@ let saidas = [
     'Coleta de resíduo',
     'Imposto do carro',
     'Imposto da moto',
-    'Alvará'
-
+    'Alvará',
+    'Outras',
+    'DARF',
+    'Água terreno',
+    'Luz terreno'
 ]
 
 let contas = [
-    'Outros',
+    'Outras',
     'Água',
+    'Água terreno',
     'Luz',
+    'Luz terreno',
     'Internet/telefone',
     'IPTU',
     'INSS',
     'SIMPLES',
     'FGTS',
-    'Aluguel'
+    'Aluguel',
+    'DARF'
 ]
 
 
@@ -43,7 +49,7 @@ let bandeiraCredito = [
     'Mastercard',
     'Visa',
     'Amex',
-'Elo',
+    'Elo',
     'Cabal',
     'Hipercard'
 ]

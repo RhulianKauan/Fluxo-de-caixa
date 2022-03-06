@@ -14,42 +14,78 @@
     --branco: rgb(240, 240, 240);
     --tamanho-card: 250px;
     --tamanho-card2: 150px;
+
+    --cor-1: #E8E8E8;
+    --cor-2: #C4C4C4;
+    --cor-3: #4D4C4C;
+    --cor-4: #F2F2F2;
+    --cor-5: #828282;
+    --cor-6: #FFF;
+
+
 }
 
+
+/* ==================================================== GERAL */
 * {
     box-sizing: border-box;
+    border-radius: 3px;
 }
 
 body {
     margin: 0;
     padding: 0;
-    /* font-family: Arial, Helvetica, sans-serif; */
     font-family: 'Roboto', Arial, sans-serif;
-    background-color: var(--cor-escura);
+    background-color: var(--cor-1);
 }
 
+.fundo--escuro {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.678);
+}
+
+
+.none {
+    display: none;
+}
 
 input,
 select,
 textarea {
     outline: none;
+    border: none;
 }
+
+textarea {
+    outline: none;
+    font-size: 12px;
+    resize: none;
+    padding: 10px 10px;
+}
+
+
 
 header {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 35px;
-    color: var(--cor-claro3);
-    background-color: var(--cor-principal);
+    height: 100px;
+    color: var(--cor-6);
+    background-color: var(--cor-5);
     margin-bottom: 40px;
 }
 
 main {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: var(--cor-3);
 }
 
 h1, h2{
@@ -59,11 +95,111 @@ h1, h2{
     margin-bottom: 20px;
 }
 
+/*  ============================================================== */
+
+
 .marginBottom {
     margin-bottom: 0px;
 }
 
 
+
+/* ======================= MODAL ========================= */
+
+
+.modal {
+    display: none;
+    align-items: center;
+    position: fixed;
+    left: calc(50% - 500px);
+    flex-direction: column;
+    width: 1000px;
+    height: 100%;
+    top: 0;
+    overflow-y: auto;
+    
+    background-color: var(--cor-1);
+    box-shadow: 0px 0px 8px var(--cor-3);
+}
+
+.modal h2 {
+    color: var(--cor-3);
+    font-size: 20px;
+}
+
+
+/* ===================== PAINEL ========================= */
+
+.painel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 260px;
+    height: auto;
+    background-color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 30px;
+    gap: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.painel h3{
+    margin: 0px;
+    margin-bottom: 10px;
+}
+
+.painel input,
+.painel select,
+.painel button,
+.painel textarea {
+    border-radius: 2px;
+    border: none;
+    height: 35px;
+    width: 200px;
+    font-size: 12px;
+    padding-left: 10px;
+    background-color: var(--cor-4);
+    color: var(--cor-3);
+}
+
+
+.painel button:hover {
+    background-color: #444444;
+}
+
+.painel button:active {
+    background-color: #adcdeb;
+}
+
+.painel .valor {
+    font-size: 16px;
+}
+
+.painel input {
+    font-weight: bold;
+}
+
+.painel textarea {
+    height: 50px;
+}
+
+.painel button {
+    background-color: var(--cor-5);
+    color: #fff;
+}
+
+
+.painel--lancamento-servico {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 170px;
+}
+
+/* ====================== PRINCIPAL ====================== */
 
 .painel--principal {
     display: flex;
@@ -73,23 +209,27 @@ h1, h2{
     width: 800px;
     height: auto;
     margin-top: 20px;
-    gap: 15px;
+    gap: 10px;
 }
+
+.card {
+    background-color: var(--cor-2);
+}
+
 
 .card--dinheiro-disponivel {
     display: flex;
-    flex-wrap: wrap;
-    width: 350px;
-    min-height: var(--tamanho-card2);
-    background-color: var(--cor-claro1);
-    border-radius: 10px;
+    width: 800px;
+    height: 50px;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    gap: 10px;
 }
 
-.painel--principal i,
-.barra-dinheiro i {
+/* icons */
+.barra--dinheiro-banco-disponivel i,
+.barra--dinheiro-fisico i {
     font-size: 30px;
 }
 
@@ -97,11 +237,11 @@ h1, h2{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 320px;
-    height: 50px;
-    border-radius: 10px;
-    background-color: var(--cor-claro3);
+    width: 300px;
+    height: 40px;
+    background-color: var(--cor-6);
     padding: 0 20px;
+    color: var(--cor-3);
 }
 
 .card--avisos {
@@ -109,28 +249,11 @@ h1, h2{
     justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
-    width: 350px;
-    min-height: var(--tamanho-card2);
-    background-color: var(--cor-claro1);
-    border-radius: 10px;
+    width: 715px;
+    min-height: 30px;
     padding: 10px 20px;
 }
 
-.card--avisos h2 {
-    font-size: 18px;
-}
-
-.adicionar--aviso {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    width: 100%;
-    border-radius: 10px;
-    color: var(--cor-claro1);
-    background-color: var(--cor-claro3);
-    box-shadow: 0px 3px 2px #49494960;
-}
 
 .card--info {
     display: flex;
@@ -139,29 +262,34 @@ h1, h2{
     flex-direction: column;
     width: 350px;
     height: var(--tamanho-card);
-    background-color: var(--cor-claro1);
-    border-radius: 10px;
     padding: 20px;
     gap: 5px;
 }
 
+/* título */
 .card--info h2 {
+    color: var(--cor-3);
     font-size: 18px;
 }
+
+/* legenda dos dados */
 .card--info h3 {
     font-size: 12px;
 }
 
-.card--info .barra--info {
+.barra--info {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    background-color: var(--cor-claro3);
+    background-color: var(--cor-6);
     justify-content: space-between;
     width: 100%;
     height: 30px;
-    border-radius: 10px;
     padding: 0 10px;
+}
+
+.barra--info span {
+    font-size: 14px;
 }
 
 .card--btn {
@@ -171,44 +299,35 @@ h1, h2{
     flex-direction: column;
     width: 350px;
     height: var(--tamanho-card);
-    background-color: var(--cor-claro1);
-    border-radius: 10px;
     padding: 20px;
     gap: 10px;
 }
+
 
 .card--btn button {
     width: 100%;
     flex: 1;
     border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    background-color: var(--cor-claro3);
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--cor-3);
+    background-color: var(--cor-6);
     box-shadow: 0px 3px 2px #49494960;
 }
 
 
 
-.modal button:hover {
-    background-color: var(--cor-escuro3);
-    color: var(--cor-claro3);
+.card--btn button:hover {
+    background-color: var(--cor-4);
+}
+
+.card--btn button:active {
+    background-color: var(--cor-3);
+    color: var(--cor-6);
 }
 
 
-.modal--adicionar--avisos {
-    display: none;
-    align-items: center;
-    position: fixed;
-    left: calc(50% - 400px);
-    flex-direction: column;
-    width: 800px;
-    height: 100%;
-    top: 0;
-    overflow-y: auto;
-    border-radius: 10px;
-    background-color: var(--cor-claro1);
-}
-
+/* icone X (sair do modal) */
 .modal .ri-close-circle-line {
     position: sticky;
     top: 5px;
@@ -217,105 +336,50 @@ h1, h2{
     margin: 20px 20px;
 }
 
-.modal--adicionar--avisos h2 {
-    height: 20px;
-    margin: 0;
-    margin-bottom: 25px;
-}
 
 
 
-.modal input,
-.modal select,
-.modal button {
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    height: 25px;
-    width: 180px;
-    font-size: 12px;
-    padding-left: 10px;
-    font-weight: bold;
-    background-color: var(--cor-claro3);
-}
-
-textarea {
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    height: 25px;
-    width: 180px;
-    font-size: 12px;
-    resize: none;
-    padding: 10px 10px;
-    height: 40px;
-    background-color: var(--cor-claro3);
-}
+/* ============================= TABELAS =============================*/
 
 
-.painel--lancar-avisos button {
-    margin-top: 10px;
-}
-
-.painel--lancar-avisos button:hover {
-    background-color: var(--cor-claro3);
-}
-
-
-.box--lancar-nome,
-.box--lancar-nota,
-.box--lancar-repeticao,
-.box--lancar-data {
-    display: flex;
-    width: 120px;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-
-
-.box {
-    display: flex;
-    flex-direction: column;
-}
-
-
-/* TABELAS */
 .modal table {
     margin-top: 20px;
     margin-bottom: 50px;
     text-align: center;
     font-size: 14px;
+    border-radius: 0px;
 }
 
 .modal table thead{
     font-size: 14px;
+    border-radius: 0px;
 }
 
 .modal table thead th {
-    background-color: var(--cor-escura);
-    color: var(--cor-claro3);
+    /* background-color: var(--cor-escura); */
     padding: 5px;
     width: 150px;
     cursor: pointer;
+    border-radius: 0px;
 }
 
 .modal table thead th:last-child {
     width: 20px;
     color: red;
+    border-radius: 0px;
 }
 
 .modal table thead th:first-child {
     width: 20px;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border-radius: 0px;
 }
 
 .modal table tbody td:last-child {
     width: 20px;
     color: red;
     font-weight: bolder;
+    border-radius: 0px;
 }
 
 .modal table tbody td {
@@ -323,36 +387,32 @@ textarea {
     padding: 5px;
     max-width: 50px;
     word-wrap: break-word;
+    border-radius: 0px;
 }
 
 .modal table tbody {
-    border-radius: 10px;
     height: 20px;
-    background-color: var(--cor-claro3);
+    background-color: var(--cor-6);
+    border-radius: 0px;
 }
 
 .modal table tbody tr:hover {
     background-color: var(--cor-claro3);
     font-weight: bold;
+    border-radius: 0px;
 }
 
-.none {
-    display: none;
-}
 
 .area--avisos {
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    flex-wrap: wrap;
     flex-direction: column;
-    background-color: var(--cor-claro3);
     padding: 10px;
     margin: 10px 0;
-    border-radius: 10px;
     font-size: 14px;
-    width: 200px;
+    width: 600px;
+    gap: 5px;
 }
 
 .area--avisos span:first-child {
@@ -365,81 +425,26 @@ textarea {
 }
 
 .model--aviso {
-    width: 100%;
-    word-wrap: break-word;
-}
-
-.modal {
-    display: none;
+    display: flex;
+    justify-content: space-around;
     align-items: center;
-    position: fixed;
-    left: calc(50% - 500px);
-    flex-direction: column;
-    width: 1000px;
-    height: 100%;
-    top: 0;
-    overflow-y: auto;
-    border-radius: 10px;
-    background-color: #bdbec4;
-    /* color: #e26060; */
-}
-
-.painel--lancamento,
-.painel--lancamento-cartao,
-.painel--lancar-avisos,
-.painel--lancar-conta,
-.painel--lancamento-servico {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 260px;
-    height: auto;
-    background-color: #51568b;
-    color: #fff;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 30px;
-    gap: 10px;
-    cursor: pointer;
-    box-shadow: 1px 1px 5px var(--cor-escuro3);
-    margin-bottom: 20px;
-}
-
-.painel--lancamento-servico {
-    align-items: center;
-    height: 150px;
-}
-
-
-.center {
-    text-align: center;
-}
-
-.paineis {
-    display: flex;
-    margin-bottom: 40px;
-    width: 100%;
-}
-
-.modal--lancamentos .paineis{
-    display: flex;
-    justify-content: center;
+    padding: 0px 10px   ;
     gap: 20px;
+    width: 600px;
+    word-wrap: break-word;
+    background-color: rgb(249, 250, 166);
 }
 
 
-.modal button {
-    font-weight: bold;
-    background-color: transparent;
-    color: var(--cor-claro3);
-    border: 2px solid var(--cor-claro3);
-    font-weight: bold;
-}
 
-.modal h2 {
-    color: #51568b;
-}
+
+
+
+
+
+
+
+
 
 .marginTop {
     margin-top: 10px;
@@ -453,7 +458,7 @@ textarea {
 .painel--editar-lancamento {
     display: none;
     background-color: #a0a0a0;
-    border-radius: 10px;
+    
     padding: 45px;
     position: fixed;
     flex-direction: column;
@@ -468,12 +473,11 @@ textarea {
     align-items: center;
     flex-direction: column;
     position: fixed;
-    left: calc(50% - 250px);
-    width: 500px;
-    height: 300px;
+    left: calc(50% - 350px);
+    width: 700px;
+    height: 350px;
     background-color: #C4C4C4;
     padding: 25px;
-    border-radius: 10px;
     gap: 5px;
 }
 
@@ -481,22 +485,25 @@ textarea {
     font-size: 30px;
 }
 
-.modal--separador input {
-    border: none;
-    width: 80px;
-    height: 30px;
-    border-radius: 10px;
-    padding: 0 10px;
-}
 
 .modal--separador .barra {
-    background-color: #F5F5F5;
+    width: 500px;
+    height: 50px;
+    background-color: var(--cor-5);
+    color: #fff;
 }
 
-.barra--separador-local1 button{
-    width: 40px;
+.modal--separador input {
+    width: 50px;
+    height: 30px;
+    background-color: var(--cor-4);
+}
+
+.modal--separador button{
+    width: 50px;
     height: 30px;
     border: none;
+    font-weight: bold;
     background-color: #d8dae7;
 }
 
@@ -514,79 +521,90 @@ textarea {
     height: 100%;
     top: 0;
     overflow-y: auto;
-    border-radius: 10px;
+
     background-color: #bdbec4;
     padding: 30px;
 }
 
 .modal-relatorio h2 {
-    color: #4d5382;
     margin-top: 20px;
 }
 
-.modal-relatorio i {
-    font-size: 40px;
-    align-self: flex-end;
-}
 
 
 .modal-relatorio table {
+    width: 800px;
     margin-top: 20px;
     margin-bottom: 50px;
     text-align: center;
     font-size: 14px;
+
 }
 
 .modal-relatorio table thead{
     font-size: 14px;
+
 }
 
 .modal-relatorio table thead th {
-    background-color: var(--cor-escura);
-    color: var(--cor-claro3);
+    color: var(--cor-3);
     padding: 5px;
     width: 150px;
     cursor: pointer;
+
 }
 
 .modal-relatorio table tbody td {
     cursor: pointer;
     padding: 5px;
-    max-width: 50px;
+    width: 100px;
     word-wrap: break-word;
+
 }
 
 .modal-relatorio table tbody {
-    border-radius: 10px;
-    height: 20px;
     background-color: var(--cor-claro3);
+
 }
 
 .modal-relatorio table tbody tr:hover {
     background-color: var(--cor-claro3);
     font-weight: bold;
+
 }
+
+.modal-relatorio table thead th:last-child {
+    width: 100px;
+    color: var(--cor-3);
+}
+
+.modal-relatorio table thead th:first-child {
+    width: 100px;
+    color: var(--cor-3);
+}
+
+.modal-relatorio table tbody td:last-child {
+    width: 100px;
+    color: var(--cor-3);
+    font-weight: bolder;
+}
+
+
 
 
 .modal--relatorio-completo {
     display: none;
     align-items: center;
     position: fixed;
+    top: 70px;
     left: calc(50% - 500px);
     flex-direction: column;
     width: 1000px;
     height: 100%;
-    top: 0;
+    margin-top: -75px;
     overflow-y: auto;
-    border-radius: 10px;
-    background-color: #bdbec4;
+    background-color: #d8d8d8;
     padding: 30px;
-}
-
-.modal--relatorio-completo h2 {
-    height: 10px;
-    color: #31202f;
-    margin: 20px;
 }
 
 .box--saldo-atual {
@@ -599,14 +617,13 @@ textarea {
     background-color: #fff;
     margin-top: 40px;
     padding: 20px;
-    border-radius: 5px;
+    
 }
 
 .box--saldo-atual h3 {
     margin: 0px;
     font-weight: 400;
     font-size: 15px;
-    color: rgba(0, 0, 0, 0.493);
 }
 
 .box--saldo-atual span {
@@ -624,8 +641,7 @@ textarea {
     margin-top: 4px;
     padding-left: 10px;
     padding-right: 10px;
-    border-radius: 5px;
-    color: rgba(0, 0, 0, 0.493);
+    
 }
 
 /* .box-relatorio {
@@ -637,13 +653,10 @@ textarea {
     background-color: rgb(255, 227, 227);
 }
 
-.linha--despesa p {
-    color: rgba(0, 0, 0, 0.493);
-}
 
 .box-relatorio span,
 .linha--despesa span {
-    color: black;
+
 }
 
 .modelo--clone-linha-despesa {
@@ -653,4 +666,12 @@ textarea {
 .area--grafico {
     width: 300px;
     height: auto;
+    margin-top: 30px;
+}
+
+.box--total-conta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

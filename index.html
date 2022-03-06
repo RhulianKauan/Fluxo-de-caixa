@@ -6,11 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-
     <title>Document</title>
 </head>
 <body>
-    <header><div class="data--atual"></div></header>
+    <div class="fundo--escuro"></div>
+
+    <header>
+        <div class="data--atual"></div>
+        <div class="card--dinheiro-disponivel">
+            <div class="barra barra--dinheiro-banco-disponivel">
+                <i class="ri-bank-fill"></i>
+                <div class="valor--banco">--</div>
+            </div>
+            <div class="barra--dinheiro-fisico barra-dinheiro barra">
+                <i class="ri-money-dollar-box-fill"></i>
+                <div class="valor--fisico">--</div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- MODAL DE LANÇAMENTOS -->
     <div class="modal--lancamentos modal">
@@ -18,14 +48,12 @@
         <h2>Lançamentos</h2>
         <div class="paineis">
 
-            <div class="painel--lancamento">
+            <div class="painel painel--lancamento">
                 <h3>Entradas</h3>
                 <div class="box">
-                    Data
                     <input class="painel--lancamento-data" type="date">
                 </div>
                 <div class="box">
-                    Tipo
                     <select class="painel--lancamento-tipo box--tipo">
                         <option value="ENTRADA">ENTRADA</option>
                         <option value="SAÍDA">SAÍDA</option>
@@ -34,19 +62,16 @@
                     </select>
                 </div>
                 <div class="box">
-                    Categoria
                     <select class="painel--lancamento-categoria box--categoria">
 
                     </select>
                 </div>
 
                 <div class="box">
-                    Detalhes
                     <textarea class="painel--lancamento-detalhes"></textarea>
                 </div>
 
                 <div class="box">
-                    Meio
                     <select class="painel--lancamento-meio">
                         <option value="dinheiro">Dinheiro</option>
                         <option value="pix">Pix</option>
@@ -55,38 +80,30 @@
                     </select>
                 </div>
                 <div class="box">
-                    Valor
-                    <input class="painel--lancamento-valor center" type="text">
-                    <div class="control">  
-                    </div>
+                    <input class="valor painel--lancamento-valor" type="text">
                 </div>
-                <button class="lancamento--geral marginTop">Lançar</button>
-                <button class="adicionar-100">-100 +100</button>
+                <button class="lancamento--geral marginTop">LANÇAR</button>
             </div>
 
             <!-- LANÇAMENTO DE CARTÃO -->
-            <div class="painel--lancamento-cartao">
+            <div class="painel painel--lancamento-cartao">
                 <h3>Cartão</h3>
                 <div class="box">
-                    Data
                     <input class="lancamento--cartao-data" type="date">
                 </div>
                 <div class="box">
-                    Tipo
                     <select class="lancamento--cartao-tipo">
                         <option value="credito">Crédito</option>
                         <option value="debito">Débido</option>
                     </select>
                 </div>
                 <div class="box">
-                    Bandeira
                     <select class="lancamento--cartao-bandeira">
                         <!-- Crédito e débido tem bandeiras diferentes -->
                         <!-- <option value="">sem valor</option> -->
                     </select>
                 </div>
                 <div class="box">
-                    Modalidade
                     <select class="lancamento--cartao-modalidade">
                         <option value="À vista">À vista</option>
                         <option value="2">2x</option>
@@ -104,22 +121,20 @@
                     <!-- No crédito tem avista de parcelado, no débito apenas avista -->
                 </div>
                 <div class="box">
-                    Valor
-                    <input class="lancamento--cartao-valor center" type="text">
+                    <input class="valor lancamento--cartao-valor" type="text">
                 </div>
                 <p>---</p>
-                <button class="lancamento--cartao-lancar">Lançar</button>
+                <button class="lancamento--cartao-lancar">LANÇAR</button>
             </div>
 
             <!-- LANÇAMENTO DE SERVIÇO -->
-            <div class="painel--lancamento-servico">
+            <div class="painel painel--lancamento-servico">
+                <h3>Serviço</h3>
                 <div class="box">
-                    Serviços
                     <input class="lancamento-servico-valor" type="text" placeholder="ENTER para lançar">
                 </div>
 
                 <div class="box">
-                    Data
                     <input class="lancamento-servico-data" type="date">
                 </div>
             </div>
@@ -148,7 +163,7 @@
     
 
     <!-- MODAL EDITAR LANÇAMENTO -->
-    <div class="painel--editar-lancamento">
+    <div class="painel painel--editar-lancamento">
         <i class="ri-close-circle-line"></i>
         <h2>Editar lançamento</h2>
         Data
@@ -175,97 +190,31 @@
         </select>
         Valor
         <input type="text">
-        <button>Lançar</button>
+        <button>LANÇAR</button>
 
     </div>
 
 
-
-
-
-    <!-- MODAL DE AVISOS -->
-    <div class="modal--adicionar--avisos modal">
-        <i class="ri-close-circle-line"></i>
-        <h2>Adicionar avisos</h2>
-        <div class="painel--lancar-avisos">
-            <div class="box--lancar-nome">
-                Nome
-                <input autofocus type="text">
-            </div>
-            <div class="box--lancar-nota">
-                Nota
-                <textarea name="" id=""></textarea>
-            </div>
-            <div class="box--lancar-repeticao">
-                Repetição
-                <select name="" id="">
-                    <option value="Uma vez">Uma vez</option>
-                    <option value="Todos os dias">Todos os dias</option>
-                    <option value="Uma vez por semana">Uma vez por semana</option>
-                    <option value="Uma vez por mês">Uma vez por mês</option>
-                </select>
-            </div>
-            <div class="box--lancar-data">
-                Data
-                <input type="date">
-            </div>
-            <button>Registrar</button>
-        </div>
-        <div class="avisos--lancados">
-            <table cellspacing="0" cellpadding="0">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Nota</th>
-                        <th>Repetição</th>
-                        <th>Data</th>
-                        <th>X</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- <tr>
-                        <td>aa</td>
-                        <td>aa</td>
-                        <td>aa</td>
-                        <td>aa</td>
-                    </tr> -->
-                </tbody>
-            </table>
-        </div>
-    </div>
 
     <!-- MODAL CONTAS A PAGAR -->
 
     <div class="modal--contas modal">
         <i class="ri-close-circle-line"></i>
         <h2>Contas a pagar</h2>
-        <div class="contas--buttons">
-            <button>Mês atual</button>
-            <button>Tudo</button>
-        </div>
-        <div class="contas--info">
-            <div class="box--total-conta">
-                <h3>Total</h3>
-                <span></span>
-            </div>
-        </div>
-        <div class="painel--lancar-conta">
+        <div class="painel painel--lancar-conta">
             <div class="box">
-                Nome:
                 <select>
                     
                 </select>
             </div>
             <div class="box">
-                Data:
                 <input type="date"> 
             </div>
 
             <div class="box">
-                Valor:
-                <input type="text">
+                <input class="valor modal--contas-valor" type="text">
             </div>
-            <button>Lançar</button>
+            <button>LANÇAR</button>
         </div>
         <h3>Contas lançadas</h3>
         <table cellspacing="0" cellpadding="0">
@@ -285,7 +234,7 @@
     </div>
 
     <!-- modal separador -->
-    <div class="modal--separador">
+    <div class="modal modal--separador">
         <i class="ri-close-circle-line"></i>
         <div class="barra-dinheiro barra">
             <i class="ri-money-dollar-box-fill"></i>
@@ -300,15 +249,16 @@
         <div class="barra--separador-local1 barra">
             Local1
             <span>--</span>
+
             <input type="text">
-            <button>100</button>
         </div>
         <p>--</p>
-
+        <button>100</button>
+        
     </div>
 
     <!-- MODAL relatório -->
-    <div class="modal-relatorio">
+    <div class="modal modal-relatorio">
         <i class="ri-close-circle-line"></i>
         <h2>Relatório</h2>
         <table class="tabela-relatorio" cellspacing="0" cellpadding="0">
@@ -329,7 +279,7 @@
     </div>
 
     <!-- Modal relatório do mes escolhido -->
-    <div class="modal--relatorio-completo">
+    <div class="modal modal--relatorio-completo">
         <h2>Relatório do mês</h2>
         <div class="mes--relatorio">--</div>
 
@@ -337,6 +287,20 @@
             <h3>Saldo atual</h3>
             <span>--</span>
         </div>
+        <div class="boxes--relatorio">
+            <div class="box-relatorio">
+                Em contas
+                <span>--</span>
+            </div>
+        </div>
+        <div class="boxes--relatorio marginBottom">
+            <div class="box-relatorio">
+                Em dinheiro
+                <span>--</span>
+            </div>
+        </div>
+
+
         <div class="boxes--relatorio">
             <div class="box-relatorio">
                 Receita
@@ -383,7 +347,6 @@
 
 
 
-
     <main>
 
 
@@ -395,32 +358,44 @@
                 <span></span><br>
                 <span></span><br>
                 <span></span><br>
-                <i class="ri-close-circle-line"></i>
-                <hr>
+                <i class="ri-checkbox-fill"></i>
             </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="card card--avisos">
+            <p>Sem contas a pagar hoje</p>
+            <div class="area--avisos"></div>
         </div>
 
         <!-- PAINEL PRINCIPAL -->
         <div class="painel--principal">
-            <div class="card--dinheiro-disponivel">
-                <div class="barra">
-                    <i class="ri-bank-fill"></i>
-                    <div class="valor--banco">--</div>
-                </div>
-                <div class="barra--dinheiro-fisico barra-dinheiro barra">
-                    <i class="ri-money-dollar-box-fill"></i>
-                    <div class="valor--fisico">--</div>
-                </div>
-            </div>
-            
-            <div class="card--avisos">
-                <h2>Avisos</h2>
-                <div class="area--avisos"></div>
-                <button class="adicionar--aviso"><i class="ri-add-fill"></i></button>
-            </div>
+           
 
             <!-- PAINEL DE INFORMAÇÕES DO MÊS ATUAL -->
-            <div class="card--info">
+            <div class="card card--info">
                 <h2>--</h2>
                 <div class="info-receita barra--info">
                     <h3>Receita</h3> 
@@ -445,19 +420,19 @@
             </div>
             
             <!-- PAINEL DE BOTÕES -->
-            <div class="card--btn">
-                <button class="card--btn-lancamento">Lançamento</button>
-                <button class="card--btn-contas">Contas a pagar</button>
-                <button class="card--btn-relatorio">Relatório</button>
-                <button class="card--btn-ntf">Nota fiscal</button>
-                <button class="card--btn-anote">Anotações</button>
+            <div class="card card--btn">
+                <button class="btn card--btn-lancamento">Lançamento</button>
+                <button class="btn card--btn-contas">Contas a pagar</button>
+                <button class="btn card--btn-relatorio">Relatório</button>
+                <button class="btn card--btn-ntf">Nota fiscal</button>
+                <button class="btn card--btn-anote">Anotações</button>
             </div>
         </div>
     </main>
     <img src="assets/Notas_fiscais_facilitador2/index.html" alt="">
 
-
-
+    <script src="assets/js/date.js"></script>
+    <script src="assets/js/localStorage.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="assets/js/options.js"></script>
     <script src="assets/js/script.js"></script>

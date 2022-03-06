@@ -1,203 +1,9 @@
-const dataCompletaAtual = new Date();
 
+
+
+// ACESSANDO O ELEMENTO
 let c = (el)=> document.querySelector(el);
 let cs = (el)=> document.querySelectorAll(el);
-
-// ================================================================ DATA
-let diaAtual = 0;
-let mesAtual = 0;
-let anoAtual = 0;
-let diaSemana = 0;
-
-// Checagem e criação dos espaços no locastorage
-function criarLocalStorage(){
-    if(localStorage.avisos == undefined) {
-        localStorage.setItem('avisos', '[]')
-    }
-    if(localStorage.relatorio == undefined) {
-        localStorage.setItem('relatorio', '[]')
-    }
-    if(localStorage.anotacoes == undefined) {
-        localStorage.setItem('anotacoes', '[]')
-    }
-    if(localStorage.lancamentos == undefined) {
-        localStorage.setItem('lancamentos', '[]')
-    }
-    if(localStorage.contasAP == undefined) {
-        localStorage.setItem('contasAP', '[]')
-    }
-    if(localStorage.separacao == undefined) {
-        localStorage.setItem('separacao', '[]')
-    } if(localStorage.datas == undefined) { // datas usadas para calcular o relatório
-        localStorage.setItem('datas', '[]')
-    }
-};
-
-criarLocalStorage()
-
-// DEFININDO A DATA
-function definindoData() {
-    diaAtual = dataCompletaAtual.getDate() // DIA
-    if(diaAtual <= 9) {
-        diaAtual = '0' + diaAtual
-    }
-    mesAtual = dataCompletaAtual.getMonth()+1 // MÊS
-    if(mesAtual <= 9) {
-        mesAtual = '0' + mesAtual
-    }
-    anoAtual = dataCompletaAtual.getFullYear() // ANO
-    diaSemana = dataCompletaAtual.getDay() // SEMANA (0-6)
-}
-definindoData()
-
-// Passando um número como argumento para a função ela retorna a semana correspondente (0-6)
-function  descobrirSemana(id) {
-    let semana = 0
-    switch (id) {
-        case 0:
-            semana = 'Domingo'
-            break;
-        case 1:
-            semana = 'Segunda-feira'
-            break;
-        case 2:
-            semana = 'Terça-feita'
-            break;
-        case 3:
-            semana = 'Quarta-feira'
-            break;
-        case 4:
-            semana = 'Quinta-feira'
-            break;
-        case 5:
-            semana = 'Sexta-feira'
-            break;
-
-        default:
-            semana = 'Sábado'
-            break;
-    }
-    return semana
-}
-// (0-11)
-function descobrirMes(id) {
-    let mes = '' 
-    switch (id) {
-        case '01':
-            mes = 'Janeiro';
-            break;
-        case '02':
-            mes = 'Fevereiro';
-            break;
-        case '03':
-            mes = 'Março';
-            break;
-        case '04':
-            mes = 'Abril';
-            break;
-        case '05':
-            mes = 'Maio';
-            break;
-        case '06':
-            mes = 'Junho';
-            break;
-        case '07':
-            mes = 'Julho';
-            break;
-        case '08':
-            mes = 'Agosto';
-            break;
-        case '09':
-            mes = 'Setembro';
-            break;
-        case '10':
-            mes = 'Outubro';
-            break;
-        case '11':
-            mes = 'Novembro';
-            break;            
-        default:
-            mes = 'Dezembro';
-            break;
-    }
-    return mes
-}
-
-
-let semanaAtual = descobrirSemana(diaSemana) // SEMANA
-
-var dataFormatada = `${anoAtual}-${mesAtual}-${diaAtual}`
-
-var diaMes = `${anoAtual}-${mesAtual}`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ================================================================
-
-// PREENCHENDO TELA PRINCIPAL
-// Dia
-c('.data--atual').innerHTML = `${diaAtual}/${mesAtual}/${anoAtual}`
-cs('[type="date"]').forEach((item)=> {
-    item.value = dataFormatada
-})
-
-// mês atual (tela de dados rápidos)
-c('.card--info h2').innerHTML = descobrirMes(mesAtual)
-
-function fechamento(button, elemento){
-    c(button).addEventListener('click', ()=> {
-        c(elemento).style.display = 'none'
-    })
-}
-
-function abertura(button, elemento) {
-    c(button).addEventListener('click', ()=> {
-        c(elemento).style.display = 'flex'
-    })
-}
 
 // REGISTRAR DADO NO LOCALSTORAGE
 function registrarLocalStorage(chave, objeto) {
@@ -206,18 +12,55 @@ function registrarLocalStorage(chave, objeto) {
     localStorage.setItem(chave, JSON.stringify(memoria))
 }
 
+// FECHAR ALGO COM CLIQUE EM ALGO
+function fechamento(button, elemento){
+    c(button).addEventListener('click', ()=> {
+        c(elemento).style.display = 'none'
+        c('.fundo--escuro').style.display = 'none'
+    })
+}
+// ABRIR ALGO COM CLIQUE EM ALGO
+function abertura(button, elemento) {
+    c(button).addEventListener('click', ()=> {
+        c(elemento).style.display = 'flex'
+        c('.fundo--escuro').style.display = 'block'
+    })
+}
+
+
+
+
+
+
+// PREENCHENDO TELA INICIAL
+
+
+
+// Data do header
+c('.data--atual').innerHTML = `${diaAtual}/${mesAtual}/${anoAtual}`
+cs('[type="date"]').forEach((item)=> {
+    item.value = dataFormatada
+})
+
+// mostra o mês atual no painel de dados rápidos 
+c('.card--info h2').innerHTML = descobrirMes(mesAtual)
+
+
 let saldoDinheiro = 0
 let saldoConta = 0
 
-// PREENCHENDO SALDO ATUAL
+
+// calculando e preenchendo saldo atual
 function calcularSaldoAtual() {
+    saldoDinheiro = 0
+    saldoConta = 0
     let lancamento = JSON.parse(localStorage.lancamentos)
     lancamento.forEach((item)=> {
         if(item.meio == 'dinheiro') {
-            saldoDinheiro +=  parseInt(item.valor)
+            saldoDinheiro +=  parseFloat(item.valor)
         }
         if(item.meio == 'pix' || item.meio == 'cartão' || item.meio == 'transferência') {
-            saldoConta += parseInt(item.valor)
+            saldoConta += parseFloat(item.valor)
         }
     })
     cs('.valor--fisico')[0].innerHTML = `R$ ${saldoDinheiro.toFixed(2)}`
@@ -230,16 +73,15 @@ function calcularSaldoAtual() {
 
 
 
+
+
 //  RELATÓRIO
 
 // abrir modal
-
-c('.card--btn-relatorio').addEventListener('click', ()=> {
-    c('.modal-relatorio').style.display = 'flex'
-})
+abertura('.card--btn-relatorio', '.modal-relatorio')
 fechamento('.modal-relatorio i', '.modal-relatorio')
 
-// função para adicionar despesas
+// Adicionando despesas
 function adicionarDespesasRelatorio(id) {
     let lista = []
     let novaLista = []
@@ -259,7 +101,9 @@ function adicionarDespesasRelatorio(id) {
         let soma = 0
         dados.forEach((i)=> {
             if(i.categoria == item && i.data.substring(0,7) == id) {
-                soma += parseInt(i.valor)
+                if(i.tipo == 'SAÍDA') {
+                    soma += parseFloat(i.valor)
+                }
             }
         })
         listaOrdenadaCategoria.push({item, soma})
@@ -280,79 +124,62 @@ function adicionarDespesasRelatorio(id) {
         // carrega as despesas na tela
         let linha = c('.modelo--clone-linha-despesa .linha--despesa').cloneNode(true)
         linha.querySelector('p').innerHTML = itemLista.item
-        linha.querySelector('span').innerHTML = `R$ ${parseInt(itemLista.soma)*(-1).toFixed(2)}`
+        linha.querySelector('span').innerHTML = `R$ ${parseFloat(itemLista.soma).toFixed(2)*(-1)}`
         c('.area--relatorio-despesa').appendChild(linha)
     })
 
     // mostrar gráfico
+
     if(nomesGrafico.length > 0) {
 
         data = {
             datasets: [{
                 data: valoresGrafico,
                 backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5'
+                '#df3934',
+                '#f19c2d',
+                '#e5e916',
+                '#5ae947',
+                '#3180e9',
+                '#9531e7',
+                '#e638c9',
+                '#837373',
+                '#837373',
+                '#837373',
+                '#837373',
+                '#837373',
+                '#837373',
+                '#837373',
+                '#837373',
+                '#837373',
+                '#837373'
                 ]
             }],
     
             // These labels appear in the legend and in the tooltips when hovering different arcs
             labels: nomesGrafico
         };
-    } else {
-        data = {
-            datasets: [{
-                data: [0, 1],
-                backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5',
-                '#c5c5c5'
-                ]
-            }],
+
+        
+
+        let config = {
+            type: 'doughnut',
+            data: data,
+        };
     
-            // These labels appear in the legend and in the tooltips when hovering different arcs
-            labels: ['a', 'b']
-        }
-    }
+        myChart = new Chart(
+            document.querySelector('.myChart'),
+            config
 
-    let config = {
-        type: 'doughnut',
-        data: data,
-    };
+        );
 
-    let myChart = new Chart(
-        document.querySelector('.myChart'),
-        config
-    );
-
+    } 
+       
 
 }
 
 
-// carregar as datas
+// carregar as datas do relatório
 function carregarDatas() {
     let array = []
     c('.tabela-relatorio tbody').innerHTML = '';
@@ -364,11 +191,13 @@ function carregarDatas() {
         novaArr = array.filter((este, i) => array.indexOf(este) === i);
     })
 
-    // mostrar dados na tabela
     
+    // definindo os dados em cada data
     let valores = [];
     if(array.length > 0) {
         novaArr.map((item, index)=> {
+            let saldoAtualConta = 0;
+            let saldoAtualDinheiro = 0;
             let totalReceita = 0;
             let totalFaturamento = 0;
             let totalDespesa = 0;
@@ -377,19 +206,35 @@ function carregarDatas() {
             dados.forEach((i)=> {
                 let data = i.data.substring(0, 7)
                 if(data == item && i.tipo == 'ENTRADA') {
-                    totalReceita += parseInt(i.valor)
-                } else if (data == item && i.tipo == 'credito' || i.tipo == 'debito') {
-                    totalFaturamento += parseInt(i.valor)
+                    totalReceita += parseFloat(i.valor)
                 } else if (data == item && i.tipo == 'SAÍDA') {
-                    totalDespesa += parseInt(i.valor)*(-1)
+                    totalDespesa += parseFloat(i.valor)*(-1)
                 } else if (data == item && i.tipo == 'serviços') {
-                    totalServico += parseInt(i.valor)
+                    totalServico += parseFloat(i.valor)
+                } 
+
+                if(data == item) {
+                    if(i.tipo == 'credito' || i.tipo == 'debito' || i.tipo == 'ENTRADA' && i.meio != 'cartão') {
+                        totalFaturamento += parseFloat(i.valor)
+                    }
                 }
             })
-            totalFaturamento += totalReceita
-            totalLucro = totalFaturamento - totalDespesa
+            dados.forEach((item2)=> {
+                if (item2.meio == 'dinheiro') {
+                    saldoAtualDinheiro +=  parseFloat(item2.valor)
+                } else if (item2.meio == 'pix' || item2.meio == 'cartão' || item2.meio == 'transferência') {
+                    saldoAtualConta += parseFloat(item2.valor)
+                }
+            })
+
+            totalLucro = totalReceita - totalDespesa
 
     
+            // adicionando saldo atual
+            cs('.box-relatorio span')[0].innerHTML = `R$ ${saldoAtualConta.toFixed(2)}`
+            cs('.box-relatorio span')[1].innerHTML = `R$ ${saldoAtualDinheiro.toFixed(2)}`
+
+
             // salva os dados de cada mês em uma array
             valores.push([item, `R$ ${totalReceita.toFixed(2)}`, `R$ ${totalFaturamento.toFixed(2)}`, `R$ ${totalDespesa.toFixed(2)}`, `R$ ${totalLucro.toFixed(2)}`, totalServico])
     
@@ -407,11 +252,12 @@ function carregarDatas() {
                     // escrevendo no modal o mês
                     c('.mes--relatorio').innerHTML = mesDoRelatorio 
                     // adicionando o saldo atual
-                    c('.box--saldo-atual span').innerHTML = `R$ ${(parseInt(saldoDinheiro) + parseInt(saldoConta)).toFixed(2)}`
+                    c('.box--saldo-atual span').innerHTML = `R$ ${(parseFloat(saldoDinheiro) + parseFloat(saldoConta)).toFixed(2)}`
 
                     // adiciondo os valores
-                    for(let i = 0; i<5; i++) {
-                        cs('.box-relatorio span')[i].innerHTML = valores[index][i+1]
+
+                    for(let i = 2; i<7; i++) {
+                        cs('.box-relatorio span')[i].innerHTML = valores[index][i-1]
                     }
 
                     adicionarDespesasRelatorio(item)
@@ -420,6 +266,7 @@ function carregarDatas() {
                 // fechar modal clicando no titulo
                 cs('.modal--relatorio-completo h2')[0].addEventListener('click', ()=> {
                     c('.modal--relatorio-completo').style.display = 'none'
+                    myChart.destroy()
                 })
             })
             c('.tabela-relatorio tbody').appendChild(linha)
@@ -440,20 +287,27 @@ function atualizarDadosPainelInfo() {
     let totalServico = 0;
     let totalLucro = 0;
     dados.map((item)=> {
-        if(item.data.substring(7, 0) == diaMes) {
+        if(item.data.substring(7, 0) == anoMes) {
             if(item.tipo == 'ENTRADA') {
-                totalReceita += parseInt(item.valor)
-            } else if (item.tipo == 'credito' || item.tipo == 'debito') {
-                totalFaturamento += parseInt(item.valor)
+                totalReceita += parseFloat(item.valor)
             } else if (item.tipo == 'SAÍDA') {
-                totalDespesa += parseInt(item.valor)
+                totalDespesa += parseFloat(item.valor)
             } else if (item.tipo == 'serviços') {
-                totalServico += parseInt(item.valor)
+                totalServico += parseFloat(item.valor)
+            }    
+        } 
+        if (item.data.substring(7, 0) == anoMes) {
+            if(item.tipo == 'credito' || item.tipo == 'debito' || item.tipo == 'ENTRADA' && item.meio != 'cartão') {
+                if(item.tipo != 'entrada n/ operacional' && item.tipo != 'saída n/ operacional') {
+                    totalFaturamento += parseFloat(item.valor)
+                    console.log(item.data.substring(7, 0)+' '+anoMes)
+                }
             }
         }
     })
-    totalFaturamento += totalReceita
-    totalLucro = totalDespesa*(-1) - totalFaturamento
+
+
+    totalLucro = totalDespesa*(-1) - totalReceita
     c('.info-receita span').innerHTML = `R$ ${totalReceita.toFixed(2)}`
     c('.info-faturamento span').innerHTML = `R$ ${totalFaturamento.toFixed(2)}`
     c('.info-despesa span').innerHTML = `R$ ${totalDespesa.toFixed(2)*(-1)}`
@@ -467,49 +321,27 @@ atualizarDadosPainelInfo()
 calcularSaldoAtual()
 
 
-// ======================================== AVISOS ==============================================
-
-fechamento('.modal--adicionar--avisos .ri-close-circle-line','.modal--adicionar--avisos')
 
 
 
 
-// Verificar se tem aviso
-function verificarAvisos() {
-    let memoria = JSON.parse(localStorage.avisos)
-    memoria.map((item, index)=> {
-        if (item.data==dataFormatada) {
-            c('.area--avisos').style.display = 'flex'
-            let model = c('.model--aviso').cloneNode(true)
-            model.querySelectorAll('span')[0].innerHTML = item.nome
-            model.querySelectorAll('span')[1].innerHTML = item.detalhes
-            model.querySelectorAll('span')[2].innerHTML = item.repeticao
-            model.querySelectorAll('span')[3].innerHTML = item.data
-            model.querySelector('i').setAttribute('data-key', index)
-            model.querySelector('i').addEventListener('click', ()=> {
-                memoria.splice(index, 1)
-                model.style.display = 'none'
-                localStorage.avisos = JSON.stringify(memoria)
-            })
-            c('.area--avisos').append(model)
-        } 
-    })
+// CONTAS 
 
-}
 
 
 
 // Mostrar contas que vencem no dia
+
+
 function mostrarContasDia() {
-    // verificarAvisos()
     let contas = JSON.parse(localStorage.contasAP)
+    c('.area--avisos').innerHTML = ''
     contas.map((item, index)=> {
         if(item.data == dataFormatada) {
             c('.area--avisos').style.display = 'flex'
             let model = c('.model--aviso').cloneNode(true)
-            model.style.backgroundColor = 'orange'
             model.querySelectorAll('span')[0].innerHTML = item.nome
-            let valor = `R$ ${parseInt(item.valor).toFixed(2)}`
+            let valor = `R$ ${parseFloat(item.valor).toFixed(2)}`
             model.querySelectorAll('span')[1].innerHTML = valor
             model.querySelectorAll('span')[2].style.display = 'none'
             model.querySelectorAll('span')[3].innerHTML = item.data
@@ -518,74 +350,37 @@ function mostrarContasDia() {
                 contas.splice(index, 1)
                 model.style.display = 'none'
                 localStorage.contasAP = JSON.stringify(contas)
+                registrarLocalStorage('lancamentos', {
+                    edit: '<i class="ri-pencil-fill"></i>',
+                    data: item.data,
+                    tipo: 'SAÍDA',
+                    categoria: item.nome,
+                    detalhes: '',
+                    meio: 'transferência',
+                    valor: item.valor,
+                    x: 'X'
+                })
+                atualizarDadosPainelInfo()
+                atualizarDadosNaTela()
+                calcularSaldoAtual()
+                mostrarContasDia()
             })
             c('.area--avisos').append(model)
         }
     })
+    if(c('.area--avisos').innerHTML == '') {
+        c('.card--avisos p').style.display = 'flex'
+    } else {
+        c('.card--avisos p').style.display = 'none'
+    }
 }
 
-
-function carregarItensAreaAvisos() {
-    c('.area--avisos').innerHTML = ''
-    mostrarContasDia()
-    verificarAvisos()
-}
-
-carregarItensAreaAvisos()
+mostrarContasDia()
 
 
 
-// Carregar avisos 
-function carregarAvisos() {
-    c('.avisos--lancados tbody').innerHTML = ''
-    let memoria = JSON.parse(localStorage.avisos)
-    memoria.map((item, index)=>{
-        let tabela = c('.avisos--lancados tbody')
-        let linha = document.createElement('tr')
 
-        Object.keys(item).forEach((element, i) => {
-            let celula = document.createElement('td')
-            celula.innerHTML = item[element]
-            linha.appendChild(celula)
-            if(i==4) {
-                celula.addEventListener('click', ()=> {
-                    memoria.splice(index, 1)
-                    localStorage.setItem('avisos', JSON.stringify(memoria))
-                    carregarItensAreaAvisos()
-                    carregarAvisos()
-                })
-                
-            }
-        });
-        tabela.appendChild(linha)
-    })
-    carregarItensAreaAvisos()
-}
-
-// Adicionar aviso
-c('.painel--lancar-avisos button').addEventListener('click', ()=> {
-    let nome = c('.box--lancar-nome input').value
-    let detalhes = c('.box--lancar-nota textarea').value
-    let repeticao = c('.box--lancar-repeticao select').value
-    let data = c('.box--lancar-data input').value
-    
-    registrarLocalStorage('avisos', {nome, detalhes, repeticao, data, x:'X'})
-    c('.box--lancar-nome input').value = ''
-    c('.box--lancar-nota textarea').value = ''
-
-    carregarAvisos()
-    carregarItensAreaAvisos()
-})
-
-
-
-// Abrir e fechar modal add avisos
-c('.adicionar--aviso').addEventListener('click', ()=> {
-    c('.modal--adicionar--avisos').style.display = 'flex'
-    carregarAvisos()
-})
-
-// ================================ LANÇAMENTO =========================================
+// LANÇAMENTO
 
 fechamento('.modal--lancamentos i', '.modal--lancamentos')
 
@@ -612,8 +407,7 @@ function carregarLancamentos() {
                     if(confirm('Tem certeza que quer apagar o registro?')) {
                         lancamentos2.splice(itemIndex, 1)
                         localStorage.setItem('lancamentos', JSON.stringify(lancamentos2))
-                        carregarLancamentos()
-                        calcularSaldoAtual()
+                        atualizarDadosNaTela()
                         atualizarDadosPainelInfo()
                     } 
                 })
@@ -699,6 +493,9 @@ function carregarLancamentos() {
 // Abrir modal de lançamento
 c('.card--btn-lancamento').addEventListener('click', ()=> {
     c('.modal--lancamentos').style.display = 'flex'
+    c('.fundo--escuro').style.display = 'block'
+    c('.painel--lancamento-valor').focus()
+
     c('.box--categoria').innerHTML = ''
     carregarLancamentos()
 
@@ -735,6 +532,19 @@ c('.card--btn-lancamento').addEventListener('click', ()=> {
 
 })
 
+
+
+// ATUALIZAR DADOS
+function atualizarDadosNaTela(){
+    // atualiza o saldo atual
+    calcularSaldoAtual()
+    // atualiza os lançamentos na tela
+    carregarLancamentos()
+    // atualiza o painel com informações rápidas do mês
+    atualizarDadosPainelInfo()
+}
+
+
 // Lançamento normal
 c('.lancamento--geral').addEventListener('click', ()=> {
     let data = c('.painel--lancamento-data').value
@@ -743,27 +553,48 @@ c('.lancamento--geral').addEventListener('click', ()=> {
     let detalhes = c('.painel--lancamento-detalhes').value
     let meio = c('.painel--lancamento-meio').value
     let valor = c('.painel--lancamento-valor').value
-    tipo == 'SAÍDA'|| tipo == 'saída n/ operacional'? valor = '-'+valor : valor = valor
+    
+    if(valor > 0) {
+        tipo == 'SAÍDA'|| tipo == 'saída n/ operacional'? valor = '-'+valor : valor = valor
+        registrarLocalStorage('lancamentos', {
+            edit: '<i class="ri-pencil-fill"></i>',
+            data,
+            tipo,
+            categoria,
+            detalhes,
+            meio, 
+            valor, 
+            x: 'X'
+        })
+        atualizarDadosNaTela()
+        
+        c('.painel--lancamento-data').value = dataFormatada
+        c('.painel--lancamento-tipo').value = 'ENTRADA'
+        c('.box--categoria').innerHTML = ''
+        entradas.map((i) => {
+            let element = document.createElement('option')
+            element.innerHTML = i
+            c('.box--categoria').appendChild(element)
+        }) 
+        c('.painel--lancamento-detalhes').value = ''
+        c('.painel--lancamento-meio').value = 'dinheiro'
+        c('.painel--lancamento-valor').value = ''
+    } else {
+        alert('O campo valor não aceita valores negativos, letras ou símbolos!')
+    }
 
-    registrarLocalStorage('lancamentos', {
-        edit: '<i class="ri-pencil-fill"></i>',
-        data,
-        tipo,
-        categoria,
-        detalhes,
-        meio, 
-        valor, 
-        x: 'X'
-    })
-    calcularSaldoAtual()
-    carregarLancamentos()
-    atualizarDadosPainelInfo()
+    
+
+
 })
 
 
 
-// Lançamento de cartão
 
+
+
+//  CARTÃO
+// carregando bandeiras
 bandeiraCredito.map((item)=> {
     let e = document.createElement('option')
     e.innerHTML = item
@@ -847,102 +678,72 @@ cs('.painel--lancamento-cartao select').forEach((item)=> {
     })
 })
 
-// Evento para quando alterar o valor
+// Evento para quando alterar o valor do cartão
 c('.lancamento--cartao-valor').addEventListener('keyup', ()=> {
     calcularTaxa()
 })
 
+
+
 // LANÇAR CARTÃO
 c('.lancamento--cartao-lancar').addEventListener('click', ()=> {
-    let data = c('.lancamento--cartao-data').value
-    let tipo = c('.lancamento--cartao-tipo').value
-    let categoria = c('.lancamento--cartao-bandeira').value
     let valor = c('.lancamento--cartao-valor').value
-    let detalhes = valor-novoValor
-    detalhes = detalhes.toFixed(2)
-    let meio = c('.lancamento--cartao-modalidade').value
-    tipo == 'SAÍDA'|| tipo == 'saída n/ operacional'? valor = '-'+valor : valor = valor;
-
-    registrarLocalStorage('lancamentos', {
-        edit: '<i class="ri-pencil-fill"></i>',
-        data,
-        tipo,
-        categoria,
-        detalhes,
-        meio, 
-        valor, 
-        x: 'X'
-    })
-    calcularSaldoAtual()
-    carregarLancamentos()
-    atualizarDadosPainelInfo()
+    if(valor>0) {
+        let data = c('.lancamento--cartao-data').value
+        let tipo = c('.lancamento--cartao-tipo').value
+        let categoria = c('.lancamento--cartao-bandeira').value
+        let detalhes = valor-novoValor
+        valor = (parseFloat(valor) - detalhes).toFixed(2)
+        detalhes = detalhes.toFixed(2)
+        let meio = c('.lancamento--cartao-modalidade').value
+        tipo == 'SAÍDA'|| tipo == 'saída n/ operacional'? valor = '-'+valor : valor = valor;
+    
+        registrarLocalStorage('lancamentos', {
+            edit: '<i class="ri-pencil-fill"></i>',
+            data,
+            tipo,
+            categoria,
+            detalhes,
+            meio, 
+            valor, 
+            x: 'X'
+        })
+        atualizarDadosNaTela()
+    } else {
+        alert('O campo valor não aceita valores negativos, letras ou símbolos!')
+    }
 })
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// LANÇAR SERVIÇO
+//  LANÇAR SERVIÇO
 
 c('.lancamento-servico-valor').addEventListener('change', ()=> {
-    let dado = JSON.parse(localStorage.lancamentos)
     let valor = c('.lancamento-servico-valor').value
-    c('.lancamento-servico-valor').value = ''
-    let data = c('.lancamento-servico-data').value
-    dado.push({
-        edit: '<i class="ri-pencil-fill"></i>',
-        data,
-        tipo: 'serviços',
-        x2: '',
-        x3: '',
-        x4: '',
-        valor,
-        x: 'X'
-    })
-    localStorage.setItem('lancamentos', JSON.stringify(dado))
-
-    carregarLancamentos()
-    atualizarDadosPainelInfo()
+    if (valor > 0) {
+        let dado = JSON.parse(localStorage.lancamentos)
+        c('.lancamento-servico-valor').value = ''
+        let data = c('.lancamento-servico-data').value
+        dado.push({
+            edit: '<i class="ri-pencil-fill"></i>',
+            data,
+            tipo: 'serviços',
+            x2: '',
+            x3: '',
+            x4: '',
+            valor,
+            x: 'X'
+        })
+        localStorage.setItem('lancamentos', JSON.stringify(dado))
+    
+        atualizarDadosNaTela()
+    } else {
+        alert('O campo valor não aceita valores negativos, letras ou símbolos!')
+    }
+  
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -966,6 +767,8 @@ function listarContasAP(){
                         contasSalvas.splice(indexItem, 1)
                         localStorage.setItem('contasAP', JSON.stringify(contasSalvas)) 
                         listarContasAP()
+                        c('.area--avisos').innerHTML = ''
+                        mostrarContasDia()
                     }
                 })
             }
@@ -978,37 +781,17 @@ function listarContasAP(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // fechar o modal de contas
 fechamento('.modal--contas .ri-close-circle-line', '.modal--contas')
 
+
+// Listando as contas no select
 c('.card--btn-contas').addEventListener('click', ()=>{
     c('.modal--contas').style.display = 'flex'
+    c('.fundo--escuro').style.display = 'block'
     c('.painel--lancar-conta .box select').innerHTML = ''
+    c('.modal--contas-valor').focus()
 
-    // Listando as contas no select
     contas.map((item)=> {
         let elemento = document.createElement('option')
         elemento.innerHTML = item
@@ -1036,10 +819,12 @@ c('.painel--lancar-conta .box select').addEventListener('change', (item)=> {
 })
 
 
+// registrando conta
 c('.painel--lancar-conta button').addEventListener('click', ()=> {
     let nome = c('.painel--lancar-conta select').value
     let data = c('.painel--lancar-conta [type="date"]').value
     let valor = cs('.painel--lancar-conta input')[1].value
+    valor = '-'+valor
 
     let lancamentoContas = JSON.parse(localStorage.contasAP)
     lancamentoContas.push({
@@ -1051,17 +836,25 @@ c('.painel--lancar-conta button').addEventListener('click', ()=> {
     })
     localStorage.setItem('contasAP', JSON.stringify(lancamentoContas)) 
     listarContasAP()
-    carregarItensAreaAvisos()
+    c('.area--avisos').innerHTML = ''
+    mostrarContasDia()
 })
 
 
 
-// ABRIR FACILITADOR DE NTF
+
+
+//  ABRIR FACILITADOR DE NTF
+
+
 c('.card--btn-ntf').addEventListener('click', ()=> {
     window.open('assets/Notas_fiscais_facilitador2/index.html', '_blank');
     window.open('assets/Notas_fiscais_facilitador2/index.html', '_blank');
   
 })
+
+
+
 
 
 
@@ -1076,25 +869,28 @@ if(dado.length == 0) {
     localStorage.setItem('separacao', JSON.stringify(dado))
 }
 
+// fechar modal
 c('.modal--separador i').addEventListener('click', ()=> {
     c('.modal--separador').style.display = 'none'
+    c('.fundo--escuro').style.display = 'none'
 })
 
 // carregar valores
 function carregarValorSeparacao() {
     let dado = JSON.parse(localStorage.separacao)
-    c('.barra--separador-principal span').innerHTML = dado[0].principal
-    let dado2 = JSON.parse(localStorage.separacao)
-    c('.barra--separador-local1 span').innerHTML = dado2[0].local1
+    c('.barra--separador-principal span').innerHTML = 'R$ '+ dado[0].principal
+    c('.barra--separador-local1 span').innerHTML = 'R$ '+ dado[0].local1
 }
 
-carregarValorSeparacao()
+
+
 
 function carregarTotalSeparacao() {
-    let n1 = c('.barra--separador-principal span').innerHTML
-    let n2 = c('.barra--separador-local1 span').innerHTML
-    let total = parseInt(n1) + parseInt(n2)
-    total = `R$ ${parseInt(total).toFixed(2)}`
+    let dado = JSON.parse(localStorage.separacao)
+    let n1 = dado[0].principal
+    let n2 = dado[0].local1
+    let total = parseFloat(n1) + parseFloat(n2)
+    total = `R$ ${parseFloat(total).toFixed(2)}`
     c('.modal--separador p').innerHTML = total
     let totalDinheiro = c('.valor--fisico').innerHTML
     if(total == totalDinheiro) {
@@ -1116,8 +912,8 @@ c('.barra--separador-principal input').addEventListener('change', (i)=> {
         })
         localStorage.setItem('separacao', JSON.stringify(dado))
     } else {
-        let total = parseInt(dado[0].principal) + parseInt(valor)
-        dado[0].principal = total
+        let total = parseFloat(dado[0].principal) + parseFloat(valor)
+        dado[0].principal = total.toFixed(2)
         localStorage.setItem('separacao', JSON.stringify(dado))
     }
     carregarValorSeparacao()
@@ -1135,8 +931,8 @@ c('.barra--separador-local1 input').addEventListener('change', (i)=> {
         })
         localStorage.setItem('separacao', JSON.stringify(dado))
     } else {
-        let total = parseInt(dado[0].local1) + parseInt(valor)
-        dado[0].local1 = total
+        let total = parseFloat(dado[0].local1) + parseFloat(valor)
+        dado[0].local1 = total.toFixed(2)
         localStorage.setItem('separacao', JSON.stringify(dado))
     }
     carregarValorSeparacao()
@@ -1144,10 +940,10 @@ c('.barra--separador-local1 input').addEventListener('change', (i)=> {
     c('.barra--separador-local1 input').value = ''
 })
 
-c('.barra--separador-local1 button').addEventListener('click', ()=> {
+c('.modal--separador button').addEventListener('click', ()=> {
     let dado = JSON.parse(localStorage.separacao)
-    let total = parseInt(dado[0].local1) + 100
-    dado[0].local1 = total
+    let total = parseFloat(dado[0].local1) + 100
+    dado[0].local1 = total.toFixed(2)
     localStorage.setItem('separacao', JSON.stringify(dado))
     carregarValorSeparacao()
     carregarTotalSeparacao()
@@ -1155,51 +951,17 @@ c('.barra--separador-local1 button').addEventListener('click', ()=> {
 
 c('.barra--dinheiro-fisico').addEventListener('click', ()=>{
     c('.modal--separador').style.display = 'flex'
+    c('.fundo--escuro').style.display = 'flex'
     carregarValorSeparacao()
     carregarTotalSeparacao()
 })
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// ao clicar o fundo some
+c('.fundo--escuro').addEventListener("click", ()=> {
+    cs('.modal').forEach((item)=> {
+        item.style.display = 'none'
+    })
+    c('.fundo--escuro').style.display = 'none'
+})
