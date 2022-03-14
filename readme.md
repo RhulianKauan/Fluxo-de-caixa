@@ -13,12 +13,17 @@
 
 ### Checklist
 
-- [ ] Refatorar código
+- [ ] Refatorar código (dividir em modulos)
 - [ ] Add Exportação e importação de dados
 - [ ] Corrigir falhas no design
+- [ ] Deixar o layout resposivo
 - [ ] Add função de editar um dado lançado
 - [ ] Add Toasts (notificações temporárias)
-- [ ] Salvar relatório em pdf
+- [ ] Add botão para salvar relatório em pdf (window.print())
+- [ ] Aplicar estilo diferente para salvamento em PDF (media query print)
+- [ ] Add alerta de conta atrasada
+- [ ] Add filtro de dados 
+- [ ] Deixar a aplicação online
 
 ### 🛠 Tecnologias
 
